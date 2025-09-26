@@ -2,15 +2,24 @@ import { expect, test } from '@playwright/test'
 
 import { getUser } from '../../support/factories/user'
 
+import { registerServices } from '../../support/services/register'
+
 test.describe('POST /auth/register', () => {
+    let register
+
+    test.beforeEach(({request}) => {
+        register = registerServices(request)
+    })
+
     test('deve cadastrar um novo usuário', async ({ request }) => {
 
+        // Preparação
         const user = getUser()
 
-        const response = await request.post('http://localhost:3333/api/auth/register', {
-            data: user
-        })
+        // Ação
+        const response = await register.createUser(user)
 
+        // Resultado Esperado
         expect(response.status()).toBe(201)
 
         const responseBody = await response.json()
@@ -23,18 +32,16 @@ test.describe('POST /auth/register', () => {
     })
 
     test('não deve cadastrar quando o email já estiver sendo usado', async ({ request }) => {
+
+        //Preparação
         const user = getUser()
-
-        const preCondition = await request.post('http://localhost:3333/api/auth/register', {
-            data: user
-        })
-
+        const preCondition = await register.createUser(user)
         expect(preCondition.status()).toBe(201)
 
-        const response = await request.post('http://localhost:3333/api/auth/register', {
-            data: user
-        })
+        // Ação
+        const response = await register.createUser(user)
 
+        // Resultado esperado
         expect(response.status()).toBe(400)
 
         const responseBody = await response.json()
@@ -42,15 +49,14 @@ test.describe('POST /auth/register', () => {
     })
 
     test('não deve cadastrar quando o email é incorreto', async ({ request }) => {
+
         const user = {
             name: 'Fulano de tall',
             email: 'fulanodetall&com.br',
             password: 'pwd123'
         }
 
-        const response = await request.post('http://localhost:3333/api/auth/register', {
-            data: user
-        })
+        const response = await register.createUser(user)
 
         expect(response.status()).toBe(400)
 
@@ -59,15 +65,13 @@ test.describe('POST /auth/register', () => {
     })
 
     test('não deve cadastrar quando o nome não é informado', async ({ request }) => {
+
         const user = {
             email: 'fulanodetall&com.br',
             password: 'pwd123'
         }
-
-        const response = await request.post('http://localhost:3333/api/auth/register', {
-            data: user
-        })
-
+        
+        const response = await register.createUser(user)
         expect(response.status()).toBe(400)
 
         const responseBody = await response.json()
@@ -75,15 +79,13 @@ test.describe('POST /auth/register', () => {
     })
 
     test('não deve cadastrar quando o email não é informado', async ({ request }) => {
+
         const user = {
             name: 'Fulano de tall',
             password: 'pwd123'
         }
 
-        const response = await request.post('http://localhost:3333/api/auth/register', {
-            data: user
-        })
-
+        const response = await register.createUser(user)
         expect(response.status()).toBe(400)
 
         const responseBody = await response.json()
@@ -91,15 +93,13 @@ test.describe('POST /auth/register', () => {
     })
 
     test('não deve cadastrar quando o senha não é informada', async ({ request }) => {
+
         const user = {
             name: 'Fulano de tall',
             email: 'fulanodetall@com.br'
         }
 
-        const response = await request.post('http://localhost:3333/api/auth/register', {
-            data: user
-        })
-
+        const response = await register.createUser(user)
         expect(response.status()).toBe(400)
 
         const responseBody = await response.json()
