@@ -9,7 +9,4 @@ test('deve verificar se a api está online', async ({ request }) => {
   const body = await response.json()
   expect(body.service).toBe('shortbeyond-api')
   expect(body.status).toBe('healthy')
-
 })
-
-
