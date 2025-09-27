@@ -1,0 +1,26 @@
+meta {
+  name: Obter lista de Links
+  type: http
+  seq: 2
+}
+
+get {
+  url: http://localhost:3333/api/links
+  body: none
+  auth: inherit
+}
+
+headers {
+  Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiMDFLNjVTMDBXQlFCSllZN1JQSE5aTkhKWEUiLCJleHAiOjE3NTkwODE4MzYsImlhdCI6MTc1ODk5NTQzNn0.su-lE0xwDf3KTUUyzUDJ1Kb_xgmn7QhMPoJSTe2gQLA
+}
+
+body:json {
+  {
+    "original_url": "https://instagran.com/papitoqa",
+    "title": "instagram papito"
+  }
+}
+
+settings {
+  encodeUrl: true
+}
