@@ -27,7 +27,7 @@ spec:
         - containerPort: 8080
           hostPort: 8080
     - name: shortb-api
-      image: beyondtest/shortb-api:latest
+      image: beyondtest/shortb-api:hotfix
       ports:
         - containerPort: 3333
           hostPort: 3333

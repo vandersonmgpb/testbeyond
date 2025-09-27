@@ -29,7 +29,7 @@ test.describe('DELETE /link/:id', () => {
         const linkId = generateULID()
 
         const response = await links.removeLink(linkId, token)
-        expect(response.status()).toBe(400)
+        expect(response.status()).toBe(404)
 
         const body = await response.json()
         expect(body.message).toBe('Link não encontrado')
