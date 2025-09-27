@@ -1,0 +1,26 @@
+meta {
+  name: Criar novo link
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:3333/api/links
+  body: json
+  auth: inherit
+}
+
+headers {
+  Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiMDFLNjVFWVQyUEU0NjdOVFhBSzdQRkJURVoiLCJleHAiOjE3NTkwNTg5ODgsImlhdCI6MTc1ODk3MjU4OH0.W2cIMeZ9NTgCiStj8GbfsH_9aseD8yejIZ9RO1e_7Sk
+}
+
+body:json {
+  {
+    "original_url": "https://instagran.com/papitoqa",
+    "title": "instagram papito"
+  }
+}
+
+settings {
+  encodeUrl: true
+}

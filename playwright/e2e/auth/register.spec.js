@@ -2,8 +2,7 @@ import { expect, test } from '@playwright/test'
 
 import { getUser } from '../../support/factories/user'
 
-import { authService } from '../../support/services/auth'
-
+import { authService } from '../support/services/auth'
 
 test.describe('POST /auth/register', () => {
     let auth
