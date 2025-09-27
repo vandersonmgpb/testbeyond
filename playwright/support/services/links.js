@@ -10,6 +10,12 @@ export const linksService = (request) => {
         })
     }
 
+    const createAndReturnLinkId = async(link, token) => {
+        const response = await createLink(link, token)
+        const body = await response.json()
+        return body.data.id
+    }
+
     const getLinks = async(token)=> {
         return await request.get('http://localhost:3333/api/links', {
             headers: {
@@ -18,8 +24,18 @@ export const linksService = (request) => {
         })
     }
 
+    const removeLink = async(linkId, token)=> {
+        return await request.delete(`http://localhost:3333/api/links/${linkId}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+    }
+
     return {
         createLink,
-        getLinks
+        getLinks,
+        createAndReturnLinkId,
+        removeLink
     }
 }
